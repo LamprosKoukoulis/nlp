@@ -27,7 +27,15 @@ git clone https://github.com/dimitris1pana/nlp_lab_unipi
 ---
 # Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς 
 ## Δομή και Ροή του Κώδικα
-### **main**
+>### **main**
+```mermaid
+    graph TD
+    subgraph main[main.ipynb]
+    G[main.ipynb] --> H["Παράδειγμα χρήσης μοντέλων"]
+    end
+```
+H main χρησιμοποιείται για την αλληλεπίδραση με τις κλάσεις και τις μεθόδους που αναπτύχθηκαν.
+
 Η γραμματική σχεδιάστηκε με τα εξής κριτήρια:
 * Ουσιαστικά (N)
 * Ρήματα (V)
@@ -131,14 +139,6 @@ flowchart LR
     end
 ```
 
-```mermaid
-    graph TD
-    subgraph main[main.ipynb]
-    G[main.ipynb] --> H["Παράδειγμα χρήσης μοντέλων"]
-    end
-```
-H main χρησιμοποιείται για την αλληλεπίδραση με τις κλάσεις και τις μεθόδους που αναπτύχθηκαν.
-- Ορίστηκαν τα μοντέλα που θα χρησιμοποιηθούν
 ```python
 models ={"prithivida":GrammarCorrector(model_name="prithivida/grammar_error_correcter_v1"),
          "vennify":GrammarCorrector(model_name="vennify/t5-base-grammar-correction"),
@@ -184,7 +184,7 @@ def sematic_similarity(v1,v2):
 - αρχικού κειμένου
 - διορθωμνένου κειμένου
 
-### Κλάση **GrammarCorrector**
+>### Κλάση **GrammarCorrector**
 ```mermaid
 graph LR    
     subgraph grammarCorrector[grammar_corrector.py]
@@ -198,7 +198,7 @@ graph LR
 ```python
 def __init__(self,model_name,max_length,use_prompt):
 ```
-### Φόρτωση Pipeline
+#### Φόρτωση Pipeline
 ```python
 self.pipe = pipeline(
     "text2text-generation",
@@ -281,7 +281,7 @@ def split_text(self,text: str) -> list[str]:
 - Υπολογίζεται το sematic similarity 
 - Επιστρέφει το αποτέλεσμα του pipeline και το sematic_score
 
-### **grammartree**
+>### **grammartree**
 ```mermaid
 graph LR
     subgraph grammartree[grammartree.py]
@@ -298,7 +298,7 @@ def num_of_gram_errors(original:str,corrected:str)-> tuple[int,int]:
     tool.close()
     return errors_original, errors_corrected
 ```
-### **evaluate**
+>### **evaluate**
 ```mermaid
     graph LR
     subgraph evaluate[evaluate.py]
