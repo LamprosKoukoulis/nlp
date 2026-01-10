@@ -1,3 +1,29 @@
+># Ευρετήριο- 
+- [Eισαγωγή](#eισαγωγή)
+    - [Clone the repository:](#clone-the-repository)
+  - [Περιγραφή Εργασίας](#περιγραφή-εργασίας)
+- [Παραδοτέο 1: Ανακατασκευή Κειμένου](#παραδοτέο-1-ανακατασκευή-κειμένου)
+- [Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς](#α-aνακατασκευή-2-προτάσεων-της-επιλογής-σας-με-αυτόματο-που-θα-διαμορφώσετε-εσείς)
+- [(C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές](#c-συγκρίνετε-τα-αποτελέσματα-της-κάθε-προσέγγισης-με-τις-κατάλληλες-τεχνικές)
+      - [Sematic Similarity Evaluation](#sematic-similarity-evaluation)
+      - [Grammatical Errors Evaluation](#grammatical-errors-evaluation)
+- [Μεθοδολογία](#μεθοδολογία)
+    - [GrammarCorrector.py](#grammarcorrectorpy)
+    - [Υπολογισμός Σημασιολογίκης Ομοιότητας (sematic\_similarity)](#υπολογισμός-σημασιολογίκης-ομοιότητας-sematic_similarity)
+      - [Φόρτωση Pipeline](#φόρτωση-pipeline)
+- [Πειράματα \& Αποτελέσματα:](#πειράματα--αποτελέσματα)
+- [Συζήτηση \& Συμπεράσματα](#συζήτηση--συμπεράσματα)
+    - [Πόσο καλά αποτύπωσαν οι ενσωματώσεις λέξεων (embeddings) το νόημα;](#πόσο-καλά-αποτύπωσαν-οι-ενσωματώσεις-λέξεων-embeddings-το-νόημα)
+    - [Ποιες ήταν οι μεγαλύτερες προκλήσεις στην ανακατασκευή;](#ποιες-ήταν-οι-μεγαλύτερες-προκλήσεις-στην-ανακατασκευή)
+    - [Πώς μπορεί να αυτοματοποιηθεί αυτή η διαδικασία χρησιμοποιώντας μοντέλα NLP;](#πώς-μπορεί-να-αυτοματοποιηθεί-αυτή-η-διαδικασία-χρησιμοποιώντας-μοντέλα-nlp)
+    - [Υπήρξαν διαφορές στην ποιότητα ανακατασκευής μεταξύ τεχνικών, μεθόδων, βιβλιοθηκών κλπ;](#υπήρξαν-διαφορές-στην-ποιότητα-ανακατασκευής-μεταξύ-τεχνικών-μεθόδων-βιβλιοθηκών-κλπ)
+- [Βιβλιογραφία:](#βιβλιογραφία)
+    - [Batch proccessing](#batch-proccessing)
+    - [Pipelines](#pipelines)
+    - [Tokenize and epoch training](#tokenize-and-epoch-training)
+    - [Trainig using t5](#trainig-using-t5)
+
+# Eισαγωγή
 >## Tech Stack & Tools
 
 - **Python 3.10** 
@@ -5,14 +31,12 @@
 - **NLTK**, **stanza**, **transformers**,**anytree**,**grammartree**, **PyTorch**, **Poetry** (for dependency management)
 - **Hugging Face** (for specific use cases)
 
->### Clone the repository:
+### Clone the repository:
 ```bash
-git clone https://github.com/dimitris1pana/nlp_lab_unipi
+git clone https://github.com/LamprosKoukoulis/nlp
 ```
 >## Made by: 
 **Lampros Koukoulis p18081**
-
-## Ανακατασκευή Κειμένου με NLP's για την αντιπετώπιση ασάφειας και γραμματικών λαθών
 
 ## Περιγραφή Εργασίας
 
@@ -25,8 +49,8 @@ git clone https://github.com/dimitris1pana/nlp_lab_unipi
 - Παρουσιάζουμε τα αποτελέσματα σε γραφήματα
 
 ---
-# Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς 
-## Δομή και Ροή του Κώδικα
+# Παραδοτέο 1: Ανακατασκευή Κειμένου
+# Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς
 >### **main**
 ```mermaid
     graph TD
@@ -106,7 +130,7 @@ PRONOUN  V  DET         N     |   V  DET   ADJ       N
    I    got this     message  to see the approved message
 ```
 
-> # Β.Ανακατακευή Κειμένων με NLP Pipelines
+> # Β. Ανακατακευή Κειμένων με NLP Pipelines
 Η ιδέα που ακολούθησα για την ανακατασκευή περιγράφεται απο το παρακάτω διάγραμμα ροής.
 ```mermaid
 flowchart TD
@@ -157,14 +181,20 @@ for p in paragraphs:
         print(f"{'='*120}\n{gc.model_name}\t|\t Scematic Score: {score}\n{'='*120}")
         print("\n".join(textwrap.wrap(output,width=120))+"\n")
 ```
-# Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές
+# (C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές
 ```python
 import evaluate
 
 evaluate.graph_errors(models,paragraphs,result_text)
 evaluate.graph_sematic(models,paragraphs,sematic_results)
 ```
-### **GrammarCorrector**
+#### Sematic Similarity Evaluation
+![Sematic Similarity Plot](img/cosine-simialrity.png)
+
+#### Grammatical Errors Evaluation
+![Sematic Similarity Plot](img/gram_errors.png)
+# Μεθοδολογία
+### GrammarCorrector.py
 Χρησιμοποιήθηκε μοντέλο SentenceTranformer για να παραγθούν διανύσματα συσχέτισης  μεταξύ των λέξεων ώστε να μπορεί να αξιολογηθεί τελικά η όποια τροποποίηση έγινε στις παραγράφους.
 
 ` encoder = SentenceTransformer("all-MiniLM-L6-v2")`
@@ -307,16 +337,100 @@ def num_of_gram_errors(original:str,corrected:str)-> tuple[int,int]:
     end
 ```
 Το αρχείο evaluate περιλαμβάνει matplotlib.pyplot figures για την οπτικοποίηση των αποτελεσμάτων 
-#### Sematic Similarity Evaluation
-![Sematic Similarity Plot](img/cosine-simialrity.png)
+# Πειράματα & Αποτελέσματα:
+Αποτελέσματα απο τα μοντέλα:
+```
+========================================================================================================================
+prithivida/grammar_error_correcter_v1	|	 Scematic Score: 0.8160571455955505
+========================================================================================================================
+During our final discuss, I told him about the new submission — the one we had been waiting for since last autumn, but
+the updates were confusing as it did not include the full feedback from reviewer or maybe editor? Anyway, I believe the
+team, although a bit of delay, is working on We should be grateful, I mean all of us, for the acceptance and efforts
+until the Springer link came finally last week, I think. Also, kindly remind me please, if you have any questions about
+the Springer link, I think. Also, kindly remind me please, if you Overall, let us make sure all are safe and celebrate
+the outcome with strong coffee and tea. Future targets.
 
-#### Grammatical Errors Evaluation
-![Sematic Similarity Plot](img/gram_errors.png)
+========================================================================================================================
+vennify/t5-base-grammar-correction	|	 Scematic Score: 0.7947148680686951
+========================================================================================================================
+During our final discuss, I told him about the new submission — the one we were waiting for since last autumn, but the
+updates was confusing as it did not include the full feedback from reviewer or maybe editor? Anyway, I believe the team,
+although bit delay, is working on it. We should be grateful, I mean all of us, for the acceptance and efforts until the
+Springer link came finally last week, I think. Because I didn't see that part final yet, or maybe I missed, I apologize
+if so. Overall, let us make sure all are safe and celebrate the outcome with strong coffee. Future targets are targets
+for the future.
+
+========================================================================================================================
+google/flan-t5-base	|	 Scematic Score: 0.9606648683547974
+========================================================================================================================
+During our final discuss, I told him about the new submission — the one we were waiting since last autumn, but the
+updates was confusing as it not included the full feedback from reviewer or maybe editor? Anyway, I believe the team,
+although bit delay. Springer link came finally last week, I think. Also, remind me, please, if the Springer link came
+finally last week, I think. the doctor still plan for the acknowledgments section edit before he send again. Because I
+didn't see that part final yet, or maybe I missed, I apologize if so. Overall, let us make sure all are safe and
+celebrate the outcome with strong coffee and coffee. future targets
+
+========================================================================================================================
+prithivida/grammar_error_correcter_v1	|	 Scematic Score: 0.9975365996360779
+========================================================================================================================
+Today is our dragon boat festival, in our Chinese culture, to celebrate it with all safe and great in our lives. Hope
+you too, to enjoy it as my deepest wishes. Thank you for your message to show our words to the doctor, as his next
+contract checking, to all of us. I got this message to see the approved message. In fact, I received the message from
+the professor, to show me, this, a couple of days ago. I am very appreciated the full support of the professor, for our
+Springer proceedings publication.
+
+========================================================================================================================
+vennify/t5-base-grammar-correction	|	 Scematic Score: 0.9139233231544495
+========================================================================================================================
+Today is our dragon boat festival, in our Chinese culture, to celebrate it with all safe and great in our lives. Hope
+you too, to enjoy it as my deepest wishes. I got this message to see the approved message. In fact, I have received the
+message from the professor, to show me, this, a couple of days ago. I am very appreciated the full support of the
+professor, for our Springer proceedings publication.
+
+========================================================================================================================
+google/flan-t5-base	|	 Scematic Score: 0.9997065663337708
+========================================================================================================================
+Today is our dragon boat festival, in our Chinese culture, to celebrate it with all safe and great in our lives. Hope
+you too, to enjoy it as my deepest wishes. Thank your message to show our words to the doctor, as his next contract
+checking, to all of us. I got this message to see the approved message. In fact, I have received the message from the
+professor, to show me, this, a couple of days ago. I am very appreciated the full support of the professor, for our
+Springer proceedings publication.
+```
+Αποτελέσματα απο το evaluation:
+```
+In original Text: 6	In Corrected Text: 6
+Grammatical errors in Paragraph 1:
+In original Text: 6	In Corrected Text: 1
+In original Text: 6	In Corrected Text: 2
+In original Text: 6	In Corrected Text: 6
+In original Text: 0	In Corrected Text: 0
+Grammatical errors in Paragraph 2:
+In original Text: 0	In Corrected Text: 0
+In original Text: 0	In Corrected Text: 0
+In original Text: 0	In Corrected Text: 0
+```
+# Συζήτηση & Συμπεράσματα
+### Πόσο καλά αποτύπωσαν οι ενσωματώσεις λέξεων (embeddings) το νόημα;
+  - Οι ενσωματώσεις λέξεων μέσω του SentenceTransformer (all-MiniLM-L6-v2) απέδωσαν πολύ καλά τη σημασία των προτάσεων. Ο υπολογισμός του cosine similarity μεταξύ αρχικού και διορθωμένου κειμένου έδειξε τιμές πολύ κοντά στο 1, που σημαίνει ότι το νόημα διατηρήθηκε, ακόμη και όταν το κείμενο είχε πολλές συντακτικές αλλαγές ή βελτιώσεις στη γραμματική. Παράλληλα, η χρήση embeddings επέτρεψε την ποσοτικοποίηση της σημασιολογικής συνέπειας, κάτι που το languageTool δεν μπορεί να κάνει.
+### Ποιες ήταν οι μεγαλύτερες προκλήσεις στην ανακατασκευή;
+  - Διάσπαση των κειμένων σε chunks, χωρίς να χαθεί η συνοχή ή να αλλοιωθεί το νόημα
+  - Συμβατότητα μοντέλων. Το **flan-t5** δεν είναι σχεδιασμένο για γραμματική διόρθωση, οπότε έπρεπε να συμπεριληφθεί prompt για να περιοριστεί η "δημιουργικότητα" και να επικεντρωθεί στην ανακατασκευή.
+  - Το languageTool στο δεύτερο κειμένο δεν εντόπισε γραμματικά λάθη.
+### Πώς μπορεί να αυτοματοποιηθεί αυτή η διαδικασία χρησιμοποιώντας μοντέλα NLP;
+  1. με την χρήση text2text tranformers
+  2. με την χρήση εργαλείων όπως το languageTool για ποσοτικοποίηση των γραμματικών λαθών.
+  3. Με word embeddings (SentenceTransformer) για έλεγχο της σημασιολογικής συνέπειας μέσω cosive similarity.
+  4. Οπτικοποίηση των αποτελεσμάτων με matplotlib.
+### Υπήρξαν διαφορές στην ποιότητα ανακατασκευής μεταξύ τεχνικών, μεθόδων, βιβλιοθηκών κλπ;
+ - Τα μοντέλα **prithivida** και **vennify** παρήγαγαν κείμενα σαφή, με σωστή σύνταξη και βελτιωμένη αναγνωσιμότητα
+ - Το μοντέλο **flan-t5** που δεν προορίζεται για γραμματική διόρθωση αλλα κυριώς για την παραγωγή κειμένου χωρίς περιορισμούς εμφάνισε ασάφειες και επαναλήψεις προτάσεων. Για να περιοριστεί αυτό χρησιμοποίησα prompt και παράμετρο penalty όταν επαναλαμβάνει τις ίδες λέξεις.  
+
+Συμπερασματικά, η ποιότητα ανακατασκευής εξαρτάται από το μοντέλο, την τεχνική (chunking, prompting) και τον τρόπο αξιολόγησης.
+
+
 ---
 
-
-
->## Citations:
+# Βιβλιογραφία:
 - Yadav, A., Patel, A., & Shah, M. (2021). A comprehensive review on resolving ambiguities in natural language processing. AI Open, 2, 85–92. https://doi.org/10.1016/j.aiopen.2021.05.001
   ### Batch proccessing
 - https://colab.research.google.com/gist/pszemraj/6e961b08970f98479511bb1e17cdb4f0/batch-grammar-check-correct-demo.ipynb
