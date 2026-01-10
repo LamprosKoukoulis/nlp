@@ -4,8 +4,8 @@ import language_tool_python
 import warnings
 
 warnings.filterwarnings('ignore')
-tool = language_tool_python.LanguageTool("en-US")
 def create_grammar_tree(text:str)-> None:
+    tool = language_tool_python.LanguageTool("en-US",config={"forceEncoding": "UTF-8"})
 
     matches = tool.check(text)
     
@@ -46,7 +46,7 @@ def create_grammar_tree(text:str)-> None:
 
 
 def check_grammar(text:str):
-
+    tool = language_tool_python.LanguageTool("en-US")
     is_bad_rule = lambda rule: rule.message == 'Possible spelling mistake found.' and len(rule.replacements) and rule.replacements[0][0].isupper()
     corrected_text = text
     count =0
@@ -63,7 +63,7 @@ def check_grammar(text:str):
                 replacement = match.replacements[0]
                 start,end= match.offset, match.offset + match.errorLength
                 corrected_text = corrected_text[:start] + replacement + corrected_text[end:]
-
+    tool.close()
     #print("Original text:", text)
     print("Corrected text:\n", corrected_text)
     print("Number of iterations:",count)
@@ -73,9 +73,11 @@ def check_grammar(text:str):
 
 
 def num_of_gram_errors(original:str,corrected:str)-> tuple[int,int]:
+    tool = language_tool_python.LanguageTool("en-US")
     errors_original = len(tool.check(original))
     errors_corrected = len(tool.check(corrected))
     print(f"In original Text: {errors_original}\tIn Corrected Text: {errors_corrected}")
+    tool.close()
     return errors_original, errors_corrected
 
 

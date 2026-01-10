@@ -1,8 +1,9 @@
-import tqdm as notebook_tqdm
-from transformers import pipeline
-import torch
-from sentence_transformers import SentenceTransformer
-import numpy as np
+# import tqdm as notebook_tqdm #for progress bar while downloading mdoels
+from typing import Any
+from transformers import pipeline #φόρτωση models
+import torch    #ανίχνευση gpu
+from sentence_transformers import SentenceTransformer #σημασιολογικά embeddings
+import numpy as np  #για μαθητικούς υπολογισμούς
 
 # model_name = "prithivida/grammar_error_correcter_v1"
 # gc1= pipeline("text2text-generation", model_name)
@@ -10,10 +11,10 @@ import numpy as np
 
 encoder = SentenceTransformer("all-MiniLM-L6-v2")
 
-def embed(text):
+def embed(text:str) ->torch.Tensor:
     return encoder.encode(text)
 
-def sematic_similarity(v1,v2):
+def sematic_similarity(v1:str,v2:str) ->Any:
     embedv1 = embed(v1)
     embedv2 = embed(v2)
     return np.dot(embedv1,embedv2)/(np.linalg.norm(embedv1)*np.linalg.norm(embedv2))
