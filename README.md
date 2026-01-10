@@ -1,23 +1,36 @@
 ># Ευρετήριο- 
 - [Eισαγωγή](#eισαγωγή)
-    - [Clone the repository:](#clone-the-repository)
+  - [Clone the repository:](#clone-the-repository)
   - [Περιγραφή Εργασίας](#περιγραφή-εργασίας)
 - [Παραδοτέο 1: Ανακατασκευή Κειμένου](#παραδοτέο-1-ανακατασκευή-κειμένου)
-- [Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς](#α-aνακατασκευή-2-προτάσεων-της-επιλογής-σας-με-αυτόματο-που-θα-διαμορφώσετε-εσείς)
-- [(C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές](#c-συγκρίνετε-τα-αποτελέσματα-της-κάθε-προσέγγισης-με-τις-κατάλληλες-τεχνικές)
-      - [Sematic Similarity Evaluation](#sematic-similarity-evaluation)
-      - [Grammatical Errors Evaluation](#grammatical-errors-evaluation)
-- [Μεθοδολογία](#μεθοδολογία)
+  - [Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς](#α-aνακατασκευή-2-προτάσεων-της-επιλογής-σας-με-αυτόματο-που-θα-διαμορφώσετε-εσείς)
+    - [Αποτελέσματα](#αποτελέσματα)
+  - [Β. Ανακατακευή Κειμένων με NLP Pipelines](#β-ανακατακευή-κειμένων-με-nlp-pipelines)
+    - [Μοντέλα που χρησιμοποιήθηκαν](#μοντέλα-που-χρησιμοποιήθηκαν)
+  - [(C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές](#c-συγκρίνετε-τα-αποτελέσματα-της-κάθε-προσέγγισης-με-τις-κατάλληλες-τεχνικές)
+    - [Sematic Similarity Evaluation](#sematic-similarity-evaluation)
+    - [Grammatical Errors Evaluation](#grammatical-errors-evaluation)
+- [Παραδοτέο 2: Υπολογιστική Ανάλυση](#παραδοτέο-2-υπολογιστική-ανάλυση)
+  - [Δικές σας -custom- αυτόματες ροές εργασίας NLP (προεπεξεργασία, λεξιλόγιο, ενσωμάτωση λέξεων, εννοιολογικά δέντρα κλπ)](#δικές-σας--custom--αυτόματες-ροές-εργασίας-nlp-προεπεξεργασία-λεξιλόγιο-ενσωμάτωση-λέξεων-εννοιολογικά-δέντρα-κλπ)
+- [Παραδοτέο 3: Δομημένη Αναφορά](#παραδοτέο-3-δομημένη-αναφορά)
+  - [Εισαγωγή](#εισαγωγή)
+  - [Μεθοδολογία](#μεθοδολογία)
+    - [main](#main)
     - [GrammarCorrector.py](#grammarcorrectorpy)
-    - [Υπολογισμός Σημασιολογίκης Ομοιότητας (sematic\_similarity)](#υπολογισμός-σημασιολογίκης-ομοιότητας-sematic_similarity)
+      - [Υπολογισμός Σημασιολογίκης Ομοιότητας (sematic\_similarity)](#υπολογισμός-σημασιολογίκης-ομοιότητας-sematic_similarity)
+    - [Κλάση GrammarCorrector](#κλάση-grammarcorrector)
       - [Φόρτωση Pipeline](#φόρτωση-pipeline)
-- [Πειράματα \& Αποτελέσματα:](#πειράματα--αποτελέσματα)
-- [Συζήτηση \& Συμπεράσματα](#συζήτηση--συμπεράσματα)
+    - [grammartree](#grammartree)
+    - [evaluate](#evaluate)
+  - [Πειράματα \& Αποτελέσματα:](#πειράματα--αποτελέσματα)
+    - [Sematic Similarity Evaluation](#sematic-similarity-evaluation-1)
+    - [Grammatical Errors Evaluation](#grammatical-errors-evaluation-1)
+  - [Συζήτηση \& Συμπεράσματα](#συζήτηση--συμπεράσματα)
     - [Πόσο καλά αποτύπωσαν οι ενσωματώσεις λέξεων (embeddings) το νόημα;](#πόσο-καλά-αποτύπωσαν-οι-ενσωματώσεις-λέξεων-embeddings-το-νόημα)
     - [Ποιες ήταν οι μεγαλύτερες προκλήσεις στην ανακατασκευή;](#ποιες-ήταν-οι-μεγαλύτερες-προκλήσεις-στην-ανακατασκευή)
     - [Πώς μπορεί να αυτοματοποιηθεί αυτή η διαδικασία χρησιμοποιώντας μοντέλα NLP;](#πώς-μπορεί-να-αυτοματοποιηθεί-αυτή-η-διαδικασία-χρησιμοποιώντας-μοντέλα-nlp)
     - [Υπήρξαν διαφορές στην ποιότητα ανακατασκευής μεταξύ τεχνικών, μεθόδων, βιβλιοθηκών κλπ;](#υπήρξαν-διαφορές-στην-ποιότητα-ανακατασκευής-μεταξύ-τεχνικών-μεθόδων-βιβλιοθηκών-κλπ)
-- [Βιβλιογραφία:](#βιβλιογραφία)
+  - [Βιβλιογραφία:](#βιβλιογραφία)
     - [Batch proccessing](#batch-proccessing)
     - [Pipelines](#pipelines)
     - [Tokenize and epoch training](#tokenize-and-epoch-training)
@@ -31,7 +44,7 @@
 - **NLTK**, **stanza**, **transformers**,**anytree**,**grammartree**, **PyTorch**, **Poetry** (for dependency management)
 - **Hugging Face** (for specific use cases)
 
-### Clone the repository:
+## Clone the repository:
 ```bash
 git clone https://github.com/LamprosKoukoulis/nlp
 ```
@@ -50,15 +63,7 @@ git clone https://github.com/LamprosKoukoulis/nlp
 
 ---
 # Παραδοτέο 1: Ανακατασκευή Κειμένου
-# Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς
->### **main**
-```mermaid
-    graph TD
-    subgraph main[main.ipynb]
-    G[main.ipynb] --> H["Παράδειγμα χρήσης μοντέλων"]
-    end
-```
-H main χρησιμοποιείται για την αλληλεπίδραση με τις κλάσεις και τις μεθόδους που αναπτύχθηκαν.
+## Α. Aνακατασκευή 2 προτάσεων της επιλογής σας με αυτόματο που θα διαμορφώσετε εσείς
 
 Η γραμματική σχεδιάστηκε με τα εξής κριτήρια:
 * Ουσιαστικά (N)
@@ -100,7 +105,7 @@ for sentence in sentences:
     for tree in parser.parse(sentence):
         tree.pretty_print()
 ```
->### Αποτελέσματα
+### Αποτελέσματα
 ```
 Printing tree for sencence: :hope you to enjoy my deepest wishes
                    S                         
@@ -130,7 +135,7 @@ PRONOUN  V  DET         N     |   V  DET   ADJ       N
    I    got this     message  to see the approved message
 ```
 
-> # Β. Ανακατακευή Κειμένων με NLP Pipelines
+## Β. Ανακατακευή Κειμένων με NLP Pipelines
 Η ιδέα που ακολούθησα για την ανακατασκευή περιγράφεται απο το παρακάτω διάγραμμα ροής.
 ```mermaid
 flowchart TD
@@ -146,7 +151,7 @@ flowchart TD
     H --> J["Οπτικοποίηση με Matplotlib"]
     I --> J
 ```
->## Μοντέλα που χρησιμοποιήθηκαν
+### Μοντέλα που χρησιμοποιήθηκαν
 ```mermaid
 flowchart LR
     subgraph models["Μοντέλα που χρησιμοποιήθηκαν"]
@@ -181,21 +186,79 @@ for p in paragraphs:
         print(f"{'='*120}\n{gc.model_name}\t|\t Scematic Score: {score}\n{'='*120}")
         print("\n".join(textwrap.wrap(output,width=120))+"\n")
 ```
-# (C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές
+## (C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές
 ```python
 import evaluate
 
 evaluate.graph_errors(models,paragraphs,result_text)
 evaluate.graph_sematic(models,paragraphs,sematic_results)
 ```
-#### Sematic Similarity Evaluation
+### Sematic Similarity Evaluation
 ![Sematic Similarity Plot](img/cosine-simialrity.png)
 
-#### Grammatical Errors Evaluation
+### Grammatical Errors Evaluation
 ![Sematic Similarity Plot](img/gram_errors.png)
-# Μεθοδολογία
+# Παραδοτέο 2: Υπολογιστική Ανάλυση
+## Δικές σας -custom- αυτόματες ροές εργασίας NLP (προεπεξεργασία, λεξιλόγιο, ενσωμάτωση λέξεων, εννοιολογικά δέντρα κλπ)
+
+Στο πλαίσιο της εργασίας επιχειρήθηκε η υλοποίηση μιας **custom αυτόματης ροής εργασίας NLP** για γραμματική διόρθωση, χωρίς τη χρήση έτοιμων text2text transformer pipelines. Η προσέγγιση βασίστηκε αποκλειστικά στο εργαλείο **LanguageTool** και σε επαναληπτική διόρθωση λαθών.
+```python
+def check_grammar(text:str):
+    tool = language_tool_python.LanguageTool("en-US")
+    is_bad_rule = lambda rule: rule.message == 'Possible spelling mistake found.' and len(rule.replacements) and rule.replacements[0][0].isupper()
+    corrected_text = text
+    count =0
+    while True:
+        count+=1
+        matches= tool.check(corrected_text)
+        matches = [rule for rule in matches if not is_bad_rule(rule)]
+
+        if not matches:
+            break
+
+        for match in sorted(matches,key=lambda m: m.offset,reverse=True):
+            if match.replacements:
+                replacement = match.replacements[0]
+                start,end= match.offset, match.offset + match.errorLength
+                corrected_text = corrected_text[:start] + replacement + corrected_text[end:]
+    tool.close()
+    #print("Original text:", text)
+    print("Corrected text:\n", corrected_text)
+    print("Number of iterations:",count)
+    #print("Grammar issues found:", len(matches))
+
+    return matches
+```
+H συνάρτηση check_grammar:
+- Ελέγχει το κείμενο για γραμματικά λάθη
+- Φιλτράρει βάση του is_bad_rule
+- Εφαρμόζει επαναληπτικά διορθώσεις μέχρις ότου να μην εμφανίζονται άλλα λάθη.
+- Εμφανίζει το διορθωμένο κείμενο και τον αριθμό των επαναλήψεων
+- Επιτρέφει τους γραμματικούς κανόνες που χρησιμοποίηθηκαν
+
+Παρόλα αυτά δεν απέδωσε ικανοποιητικά αποτελέσματα καθώς:
+- Δεν λαμβάνει υπόψην την σημασιολογική συνοχή του κειμένου.
+- Εφαρμόζει τοπικές διορθώσεις που αλλοιώνουν την φυσική ροή του κειμένου.
+
+Για αυτούς τους λόγους δεν συνεχίστηκε την ανάπτυξη της, καθώς τα μοντέλα tranformers (text2text generation) σε συνδιασμό με word embeddings απέδειχθηκαν πιο ποιοτικά και αξιόπιστα.
+
+
+# Παραδοτέο 3: Δομημένη Αναφορά
+## Εισαγωγή
+Η σημασιολογική ανακατασκευή κειμένου αποτελεί βασικό πρόβλημα της Επεξεργασίας Φυσικής Γλώσσας (NLP), καθώς στοχεύει στην βελτίωση ή και πλήρη διόρθωση ενός κειμένου χωρίς να αλλιωθεί το αρχικό νόημα αυξάνοντας την κατανόηση τόσο απο τους ανθρώπους όσο και απο αυτοματοποιημένα συστήματα για απόδοση sentiment analysis ή άλλη επεξεργασία.
+
+Η εφαρμογή τεχνικών NLP επιτρέπει την αυτόματη ανακατασκευή κειμένων μέσω tranformers, τα οποία αναγνωρίζουν γραμματικά λάθη και μπορούν να επαναδιατυπώσουν προτάσεις κρατώντας το ίδιο νόημα και περιεχόμενο.
+## Μεθοδολογία
+### main
+```mermaid
+    graph TD
+    subgraph main[main.ipynb]
+    G[main.ipynb] --> H["Παράδειγμα χρήσης μοντέλων"]
+    end
+```
+H main χρησιμοποιείται για την αλληλεπίδραση με τις κλάσεις και τις μεθόδους που αναπτύχθηκαν.
 ### GrammarCorrector.py
-Χρησιμοποιήθηκε μοντέλο SentenceTranformer για να παραγθούν διανύσματα συσχέτισης  μεταξύ των λέξεων ώστε να μπορεί να αξιολογηθεί τελικά η όποια τροποποίηση έγινε στις παραγράφους.
+Χρησιμοποιήθηκε μοντέλο SentenceTranformer για να παραγθούν διανύσματα συσχέτισης μεταξύ των λέξεων ώστε να μπορέσουν να αξιολογηθούν οι τροποποιήσεις που έγιναν στις παραγράφους.
 
 ` encoder = SentenceTransformer("all-MiniLM-L6-v2")`
 
@@ -203,7 +266,7 @@ evaluate.graph_sematic(models,paragraphs,sematic_results)
 def embed(text):
     return encoder.encode(text)
 ```
-### Υπολογισμός Σημασιολογίκης Ομοιότητας (sematic_similarity)
+#### Υπολογισμός Σημασιολογίκης Ομοιότητας (sematic_similarity)
 ```python
 def sematic_similarity(v1,v2):
     embedv1 = embed(v1)
@@ -214,7 +277,7 @@ def sematic_similarity(v1,v2):
 - αρχικού κειμένου
 - διορθωμνένου κειμένου
 
->### Κλάση **GrammarCorrector**
+### Κλάση GrammarCorrector
 ```mermaid
 graph LR    
     subgraph grammarCorrector[grammar_corrector.py]
@@ -311,7 +374,25 @@ def split_text(self,text: str) -> list[str]:
 - Υπολογίζεται το sematic similarity 
 - Επιστρέφει το αποτέλεσμα του pipeline και το sematic_score
 
->### **grammartree**
+```python
+    def _correct_once(self, text) -> str:
+        text = self.prepare(text)
+        """Run the model one time."""
+        out = self.pipe(
+        text,
+        max_new_tokens=256,                 #Limits the number of tokens the model can generate in addition to the input
+        truncation=False,                   #tuncation = false throws error if input exeeds models maximun input length
+        clean_up_tokenization_spaces=True,  #Removes exrta spaces 
+        do_sample = False,                  #Deterministic output and not creative based of sampled tokens 
+        num_beams = 4,                      #number of alternative outputs the model creates. 
+        repetition_penalty = 1.3,           #penalty for repeating the same token 
+        )[0]["generated_text"]
+
+        return out.strip()
+```
+Με την _correct_once() τελικά επιστρέφουμε την απάντηση του pipeline.
+
+### grammartree
 ```mermaid
 graph LR
     subgraph grammartree[grammartree.py]
@@ -328,7 +409,7 @@ def num_of_gram_errors(original:str,corrected:str)-> tuple[int,int]:
     tool.close()
     return errors_original, errors_corrected
 ```
->### **evaluate**
+### evaluate
 ```mermaid
     graph LR
     subgraph evaluate[evaluate.py]
@@ -337,7 +418,7 @@ def num_of_gram_errors(original:str,corrected:str)-> tuple[int,int]:
     end
 ```
 Το αρχείο evaluate περιλαμβάνει matplotlib.pyplot figures για την οπτικοποίηση των αποτελεσμάτων 
-# Πειράματα & Αποτελέσματα:
+## Πειράματα & Αποτελέσματα:
 Αποτελέσματα απο τα μοντέλα:
 ```
 ========================================================================================================================
@@ -409,7 +490,14 @@ In original Text: 0	In Corrected Text: 0
 In original Text: 0	In Corrected Text: 0
 In original Text: 0	In Corrected Text: 0
 ```
-# Συζήτηση & Συμπεράσματα
+
+Καθώς και τα figures:
+### Sematic Similarity Evaluation
+![Sematic Similarity Plot](img/cosine-simialrity.png)
+
+### Grammatical Errors Evaluation
+![Sematic Similarity Plot](img/gram_errors.png)
+## Συζήτηση & Συμπεράσματα
 ### Πόσο καλά αποτύπωσαν οι ενσωματώσεις λέξεων (embeddings) το νόημα;
   - Οι ενσωματώσεις λέξεων μέσω του SentenceTransformer (all-MiniLM-L6-v2) απέδωσαν πολύ καλά τη σημασία των προτάσεων. Ο υπολογισμός του cosine similarity μεταξύ αρχικού και διορθωμένου κειμένου έδειξε τιμές πολύ κοντά στο 1, που σημαίνει ότι το νόημα διατηρήθηκε, ακόμη και όταν το κείμενο είχε πολλές συντακτικές αλλαγές ή βελτιώσεις στη γραμματική. Παράλληλα, η χρήση embeddings επέτρεψε την ποσοτικοποίηση της σημασιολογικής συνέπειας, κάτι που το languageTool δεν μπορεί να κάνει.
 ### Ποιες ήταν οι μεγαλύτερες προκλήσεις στην ανακατασκευή;
@@ -430,7 +518,7 @@ In original Text: 0	In Corrected Text: 0
 
 ---
 
-# Βιβλιογραφία:
+## Βιβλιογραφία:
 - Yadav, A., Patel, A., & Shah, M. (2021). A comprehensive review on resolving ambiguities in natural language processing. AI Open, 2, 85–92. https://doi.org/10.1016/j.aiopen.2021.05.001
   ### Batch proccessing
 - https://colab.research.google.com/gist/pszemraj/6e961b08970f98479511bb1e17cdb4f0/batch-grammar-check-correct-demo.ipynb
