@@ -7,7 +7,7 @@
     - [Αποτελέσματα](#αποτελέσματα)
   - [Β. Ανακατακευή Κειμένων με NLP Pipelines](#β-ανακατακευή-κειμένων-με-nlp-pipelines)
     - [Μοντέλα που χρησιμοποιήθηκαν](#μοντέλα-που-χρησιμοποιήθηκαν)
-  - [(C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές](#c-συγκρίνετε-τα-αποτελέσματα-της-κάθε-προσέγγισης-με-τις-κατάλληλες-τεχνικές)
+  - [C. Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές](#c-συγκρίνετε-τα-αποτελέσματα-της-κάθε-προσέγγισης-με-τις-κατάλληλες-τεχνικές)
     - [Sematic Similarity Evaluation](#sematic-similarity-evaluation)
     - [Grammatical Errors Evaluation](#grammatical-errors-evaluation)
 - [Παραδοτέο 2: Υπολογιστική Ανάλυση](#παραδοτέο-2-υπολογιστική-ανάλυση)
@@ -186,7 +186,7 @@ for p in paragraphs:
         print(f"{'='*120}\n{gc.model_name}\t|\t Scematic Score: {score}\n{'='*120}")
         print("\n".join(textwrap.wrap(output,width=120))+"\n")
 ```
-## (C) Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές
+## C. Συγκρίνετε τα αποτελέσματα της κάθε προσέγγισης με τις κατάλληλες τεχνικές
 ```python
 import evaluate
 
@@ -301,7 +301,7 @@ self.pipe = pipeline(
 ```
 - Συμβατό και με το google/flan-t5-base
 
-Μπορούμε να δώσουμε και άλλες στο τελικο pipeline
+Μπορούμε να δώσουμε και άλλες παραμέτρους στο τελικό pipeline
 ```python
 out = self.pipe(
     text,
@@ -324,7 +324,7 @@ out = self.pipe(
             return f"Rewrite the following text to be grammatically correct, concise, and without repetition.Do not add new information:\n{text}"
         return text
 ```
-Επιπλέον, πρίν εκτελέσουμε κάποιο pipeline γίνεται έλεγχος για το μέγεθος του κειμένου, καθώς τα pipelines έχουν ορισμένο όριο εισόδου. 
+Επιπλέον, πρίν εκτελέσουμε κάποιο pipeline γίνεται έλεγχος για το μέγεθος του κειμένου, καθώς τα pipelines έχουν όριο στο κείμενο εισόδου. 
 
 ```python
 def split_text(self,text: str) -> list[str]:
@@ -399,7 +399,7 @@ graph LR
     L[grammartree.py] --> M["num_of_gram_errors()"]
     end
 ```
-Με την μέθοδο num_of_gram_errors μέσω της language_tool_python ελέγχουμε το πλήθος των σφαλμάτων που εμπεριέχονται σε 2 κείμενα. 
+Με την μέθοδο num_of_gram_errors και μέσω της language_tool_python ελέγχουμε το πλήθος των σφαλμάτων που εμπεριέχονται σε 2 κείμενα. 
 ```python
 def num_of_gram_errors(original:str,corrected:str)-> tuple[int,int]:
     tool = language_tool_python.LanguageTool("en-US")
